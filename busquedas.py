@@ -57,5 +57,6 @@ for termino in busquedas:
     print(f"Búsqueda realizada: {termino}")
     time.sleep(5)
 
+
 driver.quit()
 print("Todas las búsquedas fueron realizadas.")
