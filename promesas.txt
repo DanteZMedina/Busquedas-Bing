@@ -1,0 +1,171 @@
+/*A promise is a proxy for a value not necessarily known when the promise is created. It allows you to associate handlers with an asynchronous action's eventual successs value or failure reason. 
+
+*/
+
+// Example: How to create a promise
+function promiseToResolve() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("I resolved!");
+    }, 1000);
+  });
+}
+
+promiseToResolve().then((result) => {
+  console.log(result);
+});
+// Output: 'I resolved!' will be displayed in 1 second
+
+// Example: How to create a promise that will be rejected
+function promiseToReject() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject("I rejected!");
+    }, 1000);
+  });
+}
+promiseToReject().catch((error) => {
+  console.log(error);
+});
+// Output: 'I rejected!' will be displayed in 1 second
+
+/*
+Metodos 
+
+then and catch
+returns a Promise. It takes up to two arguments: callback functions for the success and failure cases of the Promise.
+
+Parameters:
+
+onFulfilled (Optional) - A Function called if the Promise is fulfilled. This function has one argument, the fulfillment value. If it is not a function, it is internally replaced with an identity function ((x) => x) which simply passes the fulfillment value forward.
+
+onRejected (Optional) - A Function called if the Promise is rejected. This function has one argument, the rejection reason. If it is not a function, it is internally replaced with a thrower function ((x) => { throw x; }) which throws the rejection reason it received. */
+// Example: A promise that will be rejected or resolved depending on a parameter
+function myPromise(param) {
+  return new Promise((resolve, reject) => {
+    if (param) {
+      resolve("Promise resolved");
+    } else {
+      reject("Promise rejected");
+    }
+  });
+}
+myPromise(true)
+  .then((data) => {
+    console.log(data);
+  })
+// Output: Promise resolved
+
+myPromise(false)
+  .catch((data) => {
+    console.log(data);
+  })
+// Output: Promise rejected
+
+
+a = 5 
+b = 10 
+
+if (a < b) { 
+  print("Hola")
+}
+else { 
+  print ("bye")
+}
+
+Promises chaining
+
+
+
+Promise chaining allows us to perform a series of asynchronous operations in a sequence, where each operation starts once the previous one has completed. This allows us to avoid the nested structure of callbacks (callback hell) and instead write code that is more modular and easier to read.
+
+Here's an example with two promises:
+
+// A function that returns a promise which resolves after 2 seconds
+function firstAsyncOperation() {
+  return new Promise((resolve, reject) => {
+      setTimeout(() => {
+          console.log('First operation completed');
+          resolve(10); // Resolve the promise with some value
+      }, 2000);
+  });
+}
+
+// A function that returns a promise which resolves after 1 second
+function secondAsyncOperation(number) {
+  return new Promise((resolve, reject) => {
+      setTimeout(() => {
+          console.log('Second operation completed');
+          resolve(number * 2); // Resolve with the result of some computation
+      }, 1000);
+  });
+}
+
+// Chaining the two promises
+firstAsyncOperation() // Call the first function which returns a promise
+  .then(result => {
+      // Once the first promise resolves, the result can be used in the next promise
+      return secondAsyncOperation(result);
+  })
+  .then(finalResult => {
+      // Handle the final result of the second promise
+      console.log('Final result:', finalResult);
+  })
+  .catch(error => {
+      // If any promise in the chain rejects, this catch block will handle the error
+      console.error('An error occurred:', error);
+  });
+
+  Promise.all()
+
+  
+
+// Simulate a fetch call to get user data
+function fetchUserData() {
+  return new Promise((resolve, reject) => {
+      setTimeout(() => {
+          resolve({ id: 1, name: "John Doe" }); // Simulated user data
+      }, 1000); // Resolve after 1 second
+  });
+}
+
+// Simulate image processing task
+function processImage() {
+  return new Promise((resolve, reject) => {
+      setTimeout(() => {
+          resolve("image_processed.png"); // Simulated image processing result
+      }, 2000); // Resolve after 2 seconds
+  });
+}
+
+// Simulate a database query
+function queryDatabase() {
+  return new Promise((resolve, reject) => {
+      setTimeout(() => {
+          resolve(["data1", "data2", "data3"]); // Simulated database query result
+      }, 500); // Resolve after 0.5 seconds
+  });
+}
+
+// Use Promise.all to handle all three promises
+Promise.all([fetchUserData(), processImage(), queryDatabase()])
+  .then(results => {
+      // results is an array of the resolved values from each promise
+      const userData = results[0];
+      const imageResult = results[1];
+      const databaseResult = results[2];
+
+      console.log("User data:", userData);
+      console.log("Image result:", imageResult);
+      console.log("Database result:", databaseResult);
+  })
+  .catch(error => {
+      // If any of the promises fail, this catch block will execute
+      console.error("An error occurred:", error);
+  });
+
+// User data: { id: 1, name: 'John Doe' }
+// Image result: image_processed.png
+// Database result: [ 'data1', 'data2', 'data3' ]
+
+

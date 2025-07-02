@@ -1,0 +1,16 @@
+Callback
+Is a function that is to be executed after another funcition has finished executing - hence the name Callback
+
+In javascript functions are objects. Because of this, functions can take functions as arguments, and can be returned by other functions. Functions that do this are called higher-order functions. Any function that is passed as an argument is called a callback function.
+
+
+const fs = require('fs');
+
+fs.readFile("file.txt", function(err, data){
+    if (err) throw err;
+    console.log(data);
+});
+
+
+Callback Hell 
+also known as "Pyramid of doom", refers to a situation in JavaScript where multiple nested callbacks become difficult to understand, manage and maintain. 
