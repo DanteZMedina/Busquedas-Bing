@@ -38,7 +38,7 @@ busquedas = [
 ]
 
 # Configura el servicio de EdgeDriver con la ruta correcta
-service = Service(executable_path=r"C:\Users\Dante\OneDrive\Documentos\Backup\Cursos\Bing\V138\msedgedriver.exe")
+service = Service(executable_path=r"C:\Users\\Documentos\Backup\Cursos\Bing\V138\msedgedriver.exe")
 options = webdriver.EdgeOptions()
 
 # Inicializa el driver con Service y Options
